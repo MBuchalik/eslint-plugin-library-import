@@ -8,6 +8,7 @@ const betterLodashImport = ESLintUtils.RuleCreator.withoutDocs({
       useDefaultImport: 'Import from lodash/{{name}} instead.',
       useDefaultImports:
         'Wherever possible, use default imports from lodash/{name-of-the-module}.',
+      noTopLevelDefaultImport: 'Do not use a default import from lodash',
     },
     type: 'problem',
     schema: [],
@@ -24,6 +25,16 @@ const betterLodashImport = ESLintUtils.RuleCreator.withoutDocs({
 
         if (importDeclarationNode.source.value !== 'lodash') {
           return;
+        }
+
+        const defaultImportSpecifier = importDeclarationNode.specifiers.find(
+          (specifier) => specifier.type === 'ImportDefaultSpecifier',
+        );
+        if (defaultImportSpecifier) {
+          context.report({
+            messageId: 'noTopLevelDefaultImport',
+            node: defaultImportSpecifier,
+          });
         }
 
         const specifiersToFix: TSESTree.ImportSpecifier[] = [];

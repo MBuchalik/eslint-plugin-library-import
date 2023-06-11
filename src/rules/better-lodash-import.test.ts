@@ -10,9 +10,9 @@ tester.run('no-node-import', betterLodashImport, {
   valid: [
     { code: `import { item } from 'this-is-not-lodash';` },
     { code: `import { NotFixable } from 'lodash';` },
-    { code: `import defaultImport from 'lodash';` },
     { code: `import { type isEqual } from 'lodash';` },
     { code: `import type { isEqual } from 'lodash';` },
+    { code: `import type lodash from 'lodash';` },
   ],
   invalid: [
     {
@@ -48,6 +48,7 @@ import each from 'lodash/each';`,
       output: `import defaultImport, { isEqual } from 'lodash';`,
       errors: [
         { messageId: 'useDefaultImports' },
+        { messageId: 'noTopLevelDefaultImport' },
         { messageId: 'useDefaultImport' },
       ],
     },

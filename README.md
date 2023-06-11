@@ -68,6 +68,11 @@ import { isEqual, each } from 'lodash';
   The following will not get auto-fixed.
 */
 import lodash, { isEqual } from 'lodash';
+
+/*
+  The rule also does not allow this simple default import.
+*/
+import lodash from 'lodash';
 ```
 
 Examples of **correct** code:
@@ -79,6 +84,5 @@ import { isEqual } from 'this-is-not-lodash';
 
 import { type isEqual } from 'lodash';
 
-// eslint-plugin-library-import currently allows this. Use no-restricted-syntax if you want to ban this.
-import lodash from 'lodash';
+import type lodash from 'lodash';
 ```
