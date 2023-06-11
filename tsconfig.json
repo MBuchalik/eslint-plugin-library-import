@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "dist",
+
+    /*
+      This is needed because, when running tsc, we get issues like 
+      "Interface 'ClassExpression' incorrectly extends interface 'ClassBase'".
+
+      See https://github.com/typescript-eslint/typescript-eslint/issues/6307
+    */
+    "skipLibCheck": true,
+
+    "strict": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
+  },
+
+  "include": ["src"]
+}
