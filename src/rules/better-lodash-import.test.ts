@@ -60,6 +60,22 @@ import each from 'lodash/each';`,
       ],
     },
     {
+      code: `import { /* this is a comment */ isEqual } from 'lodash';`,
+      output: `import { /* this is a comment */ isEqual } from 'lodash';`,
+      errors: [
+        { messageId: 'useDefaultImports' },
+        { messageId: 'useDefaultImport' },
+      ],
+    },
+    {
+      code: `import /* this is a comment */ { isEqual } from 'lodash';`,
+      output: `import /* this is a comment */ { isEqual } from 'lodash';`,
+      errors: [
+        { messageId: 'useDefaultImports' },
+        { messageId: 'useDefaultImport' },
+      ],
+    },
+    {
       code: `import { isEqual as renamed } from 'lodash';`,
       output: `import renamed from 'lodash/isEqual';`,
       errors: [
