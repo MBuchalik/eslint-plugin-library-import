@@ -26,9 +26,9 @@
     "url": "git+https://github.com/MBuchalik/eslint-plugin-library-import.git"
   },
   "bugs": {
-    "url": "https://github.com/MBuchalik/slint-plugin-library-import/issues"
+    "url": "https://github.com/MBuchalik/eslint-plugin-library-import/issues"
   },
-  "homepage": "https://github.com/MBuchalik/slint-plugin-library-import#readme",
+  "homepage": "https://github.com/MBuchalik/eslint-plugin-library-import#readme",
   "devDependencies": {
     "@typescript-eslint/types": "^5.59.9",
     "@typescript-eslint/utils": "^5.59.9",
