@@ -37,7 +37,7 @@ import each from 'lodash/each';`,
     },
     {
       code: `import { isEqual, NotFixable } from 'lodash';`,
-      output: `import { isEqual, NotFixable } from 'lodash';`,
+      output: null,
       errors: [
         { messageId: 'useDefaultImports' },
         { messageId: 'useDefaultImport' },
@@ -45,7 +45,7 @@ import each from 'lodash/each';`,
     },
     {
       code: `import defaultImport, { isEqual } from 'lodash';`,
-      output: `import defaultImport, { isEqual } from 'lodash';`,
+      output: null,
       errors: [
         { messageId: 'useDefaultImports' },
         { messageId: 'noTopLevelDefaultImport' },
@@ -54,7 +54,7 @@ import each from 'lodash/each';`,
     },
     {
       code: `import { isEqual, type each } from 'lodash';`,
-      output: `import { isEqual, type each } from 'lodash';`,
+      output: null,
       errors: [
         { messageId: 'useDefaultImports' },
         { messageId: 'useDefaultImport' },
@@ -62,7 +62,7 @@ import each from 'lodash/each';`,
     },
     {
       code: `import { /* this is a comment */ isEqual } from 'lodash';`,
-      output: `import { /* this is a comment */ isEqual } from 'lodash';`,
+      output: null,
       errors: [
         { messageId: 'useDefaultImports' },
         { messageId: 'useDefaultImport' },
@@ -70,7 +70,15 @@ import each from 'lodash/each';`,
     },
     {
       code: `import /* this is a comment */ { isEqual } from 'lodash';`,
-      output: `import /* this is a comment */ { isEqual } from 'lodash';`,
+      output: null,
+      errors: [
+        { messageId: 'useDefaultImports' },
+        { messageId: 'useDefaultImport' },
+      ],
+    },
+    {
+      code: `import { isEqual } from /* this is a comment */ 'lodash';`,
+      output: null,
       errors: [
         { messageId: 'useDefaultImports' },
         { messageId: 'useDefaultImport' },

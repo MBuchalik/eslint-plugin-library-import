@@ -1,6 +1,5 @@
 import type { TSESTree } from '@typescript-eslint/types';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { RuleFix } from '@typescript-eslint/utils/dist/ts-eslint';
 
 const betterLodashImport = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -38,24 +37,23 @@ const betterLodashImport = ESLintUtils.RuleCreator.withoutDocs({
         }
 
         const specifiersToFix: TSESTree.ImportSpecifier[] = [];
-
-        for (const singleSpecifier of importDeclarationNode.specifiers) {
+        for (const specifier of importDeclarationNode.specifiers) {
           if (
-            singleSpecifier.type !== 'ImportSpecifier' ||
-            singleSpecifier.importKind !== 'value' ||
-            !isProbablyDefaultImportable(singleSpecifier)
+            specifier.type !== 'ImportSpecifier' ||
+            specifier.importKind !== 'value' ||
+            !isProbablyDefaultImportable(specifier)
           ) {
             continue;
           }
 
-          specifiersToFix.push(singleSpecifier);
+          specifiersToFix.push(specifier);
 
           context.report({
             messageId: 'useDefaultImport',
             data: {
-              name: singleSpecifier.imported.name,
+              name: specifier.imported.name,
             },
-            node: singleSpecifier,
+            node: specifier,
           });
         }
 
@@ -79,27 +77,21 @@ const betterLodashImport = ESLintUtils.RuleCreator.withoutDocs({
               It is possible that some of the import specifiers need to be kept.
               Since this is probably a rare edge case, we simply do not provide a fixer for this (yet).
             */
-
             if (
               specifiersToFix.length < importDeclarationNode.specifiers.length
             ) {
               return null;
             }
 
-            const fixes: RuleFix[] = [];
-
             const newImports: string[] = [];
-            for (const singleSpecifier of specifiersToFix) {
-              newImports.push(buildNewImport(singleSpecifier));
+            for (const singleSpecifierToFix of specifiersToFix) {
+              const newImport = buildNewImport(singleSpecifierToFix);
+              newImports.push(newImport);
             }
             const newImportsAsString = newImports.join('\n');
 
             // Replace the original import statement with our new imports.
-            fixes.push(
-              fixer.replaceText(importDeclarationNode, newImportsAsString),
-            );
-
-            return fixes;
+            return fixer.replaceText(importDeclarationNode, newImportsAsString);
           },
         });
       },
